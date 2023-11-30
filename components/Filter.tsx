@@ -41,11 +41,11 @@ export const Filter = ({
     setClearFilter(!clearFilter);
     setSelectedStatus(new Set([]));
     setSelectedType(new Set([]));
-  }
+  };
 
   const call = () => {
     apply(startDate, endDate, selectedType, selectedStatus);
-  }
+  };
 
   const startDate = `${
     (startValue as Date)?.getDate() +
@@ -134,79 +134,102 @@ export const Filter = ({
 
         <div className="w-[412px] h-10 absolute overflow-scroll pb-6 left-[22px] top-[82px]">
           <div className="flex flex-row gap-3 items-start justify-start w-[877px] absolute left-0 top-0">
-            <div className="bg-trashed-colors-white-100 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative">
-              <div
-                className="text-black-black-300 text-left relative flex items-center justify-start"
-                style={{
-                  font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
-                }}
-              >
-                Today{" "}
-              </div>
-            </div>
-            <div className="bg-white-white-100 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative">
-              <div
-                className="text-black-black-300 text-left relative flex items-center justify-start"
-                style={{
-                  font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
-                }}
-              >
-                Last 7 days{" "}
-              </div>
-            </div>
-            <div className="bg-trashed-colors-white-100 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative">
-              <div
-                className="text-black-black-300 text-left relative flex items-center justify-start"
-                style={{
-                  font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
-                }}
-              >
-                This month{" "}
-              </div>
-            </div>
-            <div className="bg-trashed-colors-white-100 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative">
-              <div
-                className="text-black-black-300 text-left relative flex items-center justify-start"
-                style={{
-                  font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
-                }}
-              >
-                Last 3 months{" "}
-              </div>
-            </div>
-            <div className="bg-trashed-colors-white-100 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative">
-              <div
-                className="text-black-black-300 text-left relative flex items-center justify-start"
-                style={{
-                  font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
-                }}
-              >
-                This year{" "}
-              </div>
-            </div>
-            <div className="bg-trashed-colors-white-100 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative">
-              <div
-                className="text-black-black-300 text-left relative flex items-center justify-start"
-                style={{
-                  font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
-                }}
-              >
-                Last year{" "}
-              </div>
-            </div>
-            <div className="bg-black-black-300 rounded-[100px] pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative">
-              <div
-                className="text-white-white-100 text-left relative flex items-center justify-start"
-                style={{
-                  font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
-                }}
-              >
-                All time{" "}
-              </div>
-            </div>
+            <button
+              onClick={() => {
+                startOnChange(new Date());
+                endOnChange(new Date());
+              }}
+              style={{
+                font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
+              }}
+              className="bg-trashed-colors-white-100 hover:bg-black hover:text-white text-black-black-300 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative"
+            >
+              Today
+            </button>
+            <button
+              onClick={() => {
+                startOnChange(new Date());
+                endOnChange(
+                  new Date(new Date().setDate(new Date().getDate() - 7))
+                );
+              }}
+              style={{
+                font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
+              }}
+              className="bg-trashed-colors-white-100 hover:bg-black hover:text-white text-black-black-300 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative"
+            >
+              Last 7 days
+            </button>
+            <button
+              onClick={() => {
+                startOnChange(new Date());
+                endOnChange(
+                  new Date(new Date().setDate(new Date().getDate() - 30))
+                );
+              }}
+              style={{
+                font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
+              }}
+              className="bg-trashed-colors-white-100 hover:bg-black hover:text-white text-black-black-300 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative"
+            >
+              This month
+            </button>
+            <button
+              onClick={() => {
+                startOnChange(new Date());
+                endOnChange(
+                  new Date(new Date().setDate(new Date().getDate() - 90))
+                );
+              }}
+              style={{
+                font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
+              }}
+              className="bg-trashed-colors-white-100 hover:bg-black hover:text-white text-black-black-300 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative"
+            >
+              Last 3 months
+            </button>
+            <button
+              onClick={() => {
+                startOnChange(new Date());
+                endOnChange(
+                  new Date(new Date().setDate(new Date().getDate() - 365))
+                );
+              }}
+              style={{
+                font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
+              }}
+              className="bg-trashed-colors-white-100 hover:bg-black hover:text-white text-black-black-300 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative"
+            >
+              This year
+            </button>
+            <button
+              onClick={() => {
+                startOnChange(
+                  new Date(new Date().setDate(new Date().getDate() - 730))
+                );
+                endOnChange(
+                  new Date(new Date().setDate(new Date().getDate() - 365))
+                );
+              }}
+              style={{
+                font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
+              }}
+              className="bg-trashed-colors-white-100 hover:bg-black hover:text-white text-black-black-300 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative"
+            >
+              Last year
+            </button>
+            <button
+              onClick={clearFilterFields}
+              style={{
+                font: "var(--degular-subtitle-7-x-small, 600 14px/16px 'Degular-Semibold', sans-serif)",
+              }}
+              className="bg-trashed-colors-white-100 hover:bg-black hover:text-white text-black-black-300 rounded-[100px] border-solid border-gray-gray-50 border pt-2.5 pr-[18px] pb-2.5 pl-[18px] flex flex-col gap-1 items-center justify-center shrink-0 relative"
+            >
+              All time
+            </button>
           </div>
         </div>
-        
+
         <div className="flex flex-col gap-6 items-start justify-start w-[412px] absolute left-[calc(50%_-_206px)] top-[146px]">
           <div className="flex flex-row gap-1.5 items-start justify-start self-stretch shrink-0 relative">
             <div className="flex flex-col gap-3 items-start justify-start flex-1 relative">
