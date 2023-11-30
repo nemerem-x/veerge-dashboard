@@ -15,6 +15,14 @@ export interface Info {
   type: string;
 }
 
+export interface Wallet {
+  balance: number;
+  ledger_balance: number;
+  pending_payout: number;
+  total_payout: number;
+  total_revenue: number;
+}
+
 export interface IShareProps {
   className?: string;
   setFilterOpen: Dispatch<SetStateAction<boolean>>;

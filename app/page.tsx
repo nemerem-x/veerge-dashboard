@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="bg-trashed-colors-white-80 w-full m-auto h-full px-10">
       <NavBar />
-      <div className="w-[80%] m-auto">
+      <div className="lg:w-[80%] w-full m-auto">
         <Balance />
         <Transactions setFilterOpen={setFilterOpen} filterOpen={filterOpen} />
         <SideMenu/>

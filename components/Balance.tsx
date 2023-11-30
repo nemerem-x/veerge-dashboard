@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import { balance } from "@/services/balance";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
-
-interface Wallet {
-  balance: number;
-  ledger_balance: number;
-  pending_payout: number;
-  total_payout: number;
-  total_revenue: number;
-}
+import { LineChart, Line } from "recharts";
+import { useRecoilValue } from "recoil";
+import { transactionsAtom } from "@/recoil";
+import { months } from "@/utils/months";
+import { Wallet } from "@/types";
 
 export default function Balance() {
   const [wallet, setWallet] = useState<Wallet>();
-  const data = [
-    { name: "Page A", uv: 100, amt: 2400 },
-    { name: "Page B", uv: 500, amt: 2400 },
-    { name: "Page C", uv: 300, amt: 2000 },
-  ];
+  const transactions = useRecoilValue(transactionsAtom);
+  const [startValue, startOnChange] = useState(new Date());
+  const [endValue, endOnChange] = useState(new Date());
+
+  const data = transactions
+    // .filter((o) => {
+    //   return o.type === "withdrawal";
+    // })
+    .map((o) => {
+      return { uv: o.amount };
+    });
 
   useEffect(() => {
     async function wallet() {
@@ -26,9 +28,31 @@ export default function Balance() {
     wallet();
   }, []);
 
+  useEffect(() => {
+    if (transactions.length > 0) {
+      startOnChange(new Date(transactions[0].date));
+      endOnChange(new Date(transactions[transactions.length - 1].date));
+    }
+  }, [transactions]);
+
+  const startDate = `${
+    (startValue as Date)?.getDate() +
+    " " +
+    months[(startValue as Date)?.getMonth()] +
+    " " +
+    (startValue as Date)?.getFullYear()
+  }`;
+  const endDate = `${
+    (endValue as Date)?.getDate() +
+    " " +
+    months[(endValue as Date)?.getMonth()] +
+    " " +
+    (endValue as Date)?.getFullYear()
+  }`;
+
   return (
-    <div className="h-auto w-full relative flex flex-col justify-center items-center mt-20">
-      <div className="flex md:flex-row flex-col w-full justify-between gap-10">
+    <div className="h-auto w-full overflow-hidden relative flex flex-col justify-center items-center mt-20">
+      <div className="flex lg:flex-row flex-col w-full justify-between gap-10">
         <div className="flex flex-col">
           <div className="flex items-center gap-16 w-full">
             <div className="flex flex-col gap-2 items-start justify-start shrink-0 relative">
@@ -61,18 +85,18 @@ export default function Balance() {
           <LineChart
             width={1000}
             height={300}
-            data={data}
+            data={data.length ? data : [{ uv: 0 }, { uv: 0 }]}
           >
             <Line type="monotone" dataKey="uv" stroke="red" />
           </LineChart>
-          <div className="mt-0 w-full flex justify-between">
+          <div className="mt-0 w-full flex justify-between pt-2 border-t border-black/10">
             <p
               className="text-gray-gray-400"
               style={{
                 font: "var(--degular-paragraph-xx-small, 500 14px/16px 'Degular-Medium', sans-serif)",
               }}
             >
-              Feb 20 , 2022
+              {endDate}
             </p>
             <p
               className="text-gray-gray-400"
@@ -80,12 +104,12 @@ export default function Balance() {
                 font: "var(--degular-paragraph-xx-small, 500 14px/16px 'Degular-Medium', sans-serif)",
               }}
             >
-              Mar 03 , 2022
+              {startDate}
             </p>
           </div>
         </div>
         <div className="flex flex-col gap-8 items-start justify-start">
-          <div className="flex flex-col gap-2 items-start justify-start shrink-0 w-[271px] relative">
+          <div className="flex flex-col gap-2 items-start justify-start shrink-0 lg:w-[260px] w-full relative">
             <div className="flex flex-row gap-2 items-center justify-start self-stretch shrink-0 relative">
               <p
                 className="text-gray-gray-400 text-left relative flex-1 flex items-center justify-start"
@@ -132,7 +156,7 @@ export default function Balance() {
               USD {wallet?.ledger_balance.toFixed(2) || "-"}
             </p>
           </div>
-          <div className="flex flex-col gap-2 items-start justify-start shrink-0 w-[271px] relative">
+          <div className="flex flex-col gap-2 items-start justify-start shrink-0 lg:w-[260px] w-full relative">
             <div className="flex flex-row gap-2 items-center justify-start self-stretch shrink-0 relative">
               <div
                 className="text-gray-gray-400 text-left relative flex-1 flex items-center justify-start"
@@ -179,7 +203,7 @@ export default function Balance() {
               USD {wallet?.total_payout.toFixed(2) || "-"}
             </div>
           </div>
-          <div className="flex flex-col gap-2 items-start justify-start shrink-0 w-[271px] relative">
+          <div className="flex flex-col gap-2 items-start justify-start shrink-0 lg:w-[260px] w-full relative">
             <div className="flex flex-row gap-2 items-center justify-start self-stretch shrink-0 relative">
               <div
                 className="text-gray-gray-400 text-left relative flex-1 flex items-center justify-start"
@@ -226,7 +250,7 @@ export default function Balance() {
               USD {wallet?.total_revenue.toFixed(2) || "-"}
             </div>
           </div>
-          <div className="flex flex-col gap-2 items-start justify-start shrink-0 w-[271px] relative">
+          <div className="flex flex-col gap-2 items-start justify-start shrink-0 lg:w-[260px] w-full relative">
             <div className="flex flex-row gap-2 items-center justify-start self-stretch shrink-0 relative">
               <div
                 className="text-gray-gray-400 text-left relative flex-1 flex items-center justify-start"

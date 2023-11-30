@@ -6,6 +6,8 @@ import { transactions } from "@/services/transactions";
 import { Selection } from "@nextui-org/react";
 import { Filter } from "../../components/Filter";
 import { transactionsFilter } from "@/services/transactions";
+import { useSetRecoilState } from "recoil";
+import { transactionsAtom } from "@/recoil";
 import { Info } from "@/types";
 import { Prop } from "@/types";
 
@@ -13,12 +15,14 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
   const [transactionsData, setTransactionsData] = useState<Info[]>([]);
   const [loading, setLoading] = useState(true);
   const [clearFilter, setClearFilter] = useState(false);
+  const transactionsState = useSetRecoilState(transactionsAtom);
 
   useEffect(() => {
     async function transaction() {
       setLoading(true);
       const data = await transactions();
       setTransactionsData(data);
+      transactionsState(data);
       setLoading(false);
     }
     transaction();
@@ -39,6 +43,7 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
       selectedStatus
     );
     setTransactionsData(data);
+    transactionsState(data);
     setLoading(false);
   };
 
@@ -62,10 +67,10 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
             />
           )}
         </AnimatePresence>
-        <div className="border-solid border-gray-gray-50 border-b pb-6 flex flex-row gap-6 items-center justify-start w-full">
+        <div className="border-solid border-gray-gray-50 border-b pb-6 flex flex-row items-center justify-between w-full">
           <div className="flex flex-col gap-0 items-start justify-start flex-1 relative">
             <p
-              className="text-black-black-300 text-left relative w-[254.5px] flex items-center justify-start"
+              className="text-black-black-300 text-left"
               style={{
                 font: "var(--degular-headers-3-x-small, 700 24px/32px 'Degular-Bold', sans-serif)",
               }}
@@ -73,7 +78,7 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
               {transactionsData.length} Transactions
             </p>
             <p
-              className="text-gray-gray-400 text-left relative self-stretch flex items-center justify-start"
+              className="text-gray-gray-400 text-left "
               style={{
                 font: "var(--degular-paragraph-xx-small, 500 14px/16px 'Degular-Medium', sans-serif)",
               }}

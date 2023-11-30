@@ -1,7 +1,7 @@
 export default function SideMenu() {
   return (
     <div
-      className="bg-[#ffffff] rounded-[100px] p-1 w-fit flex flex-row gap-1 items-start justify-start absolute left-0 top-[310px]"
+      className="bg-[#ffffff] rounded-[100px] p-1 w-fit flex flex-row gap-1 items-start justify-start fixed left-4 top-[310px]"
       style={{
         boxShadow:
           "var(--app-bar-box-shadow,  0px 6px 12px 0px rgba(92, 115, 131, 0.08),  0px 4px 8px 0px rgba(92, 115, 131, 0.08))",
