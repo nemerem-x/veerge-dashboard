@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { balance } from "@/services/balance";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
 
 interface Wallet {
   balance: number;
@@ -11,6 +12,11 @@ interface Wallet {
 
 export default function Balance() {
   const [wallet, setWallet] = useState<Wallet>();
+  const data = [
+    { name: "Page A", uv: 100, amt: 2400 },
+    { name: "Page B", uv: 500, amt: 2400 },
+    { name: "Page C", uv: 300, amt: 2000 },
+  ];
 
   useEffect(() => {
     async function wallet() {
@@ -52,24 +58,16 @@ export default function Balance() {
               Withdraw
             </button>
           </div>
-          <svg
-            className="rounded-none w-full max-w-[765px] h-[250px]"
-            // style={{ transform: "translate(-0.5px, 80.63px)" }}
-            width="767"
-            height="178"
-            viewBox="0 0 767 178"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          <LineChart
+            width={1000}
+            height={300}
+            data={data}
           >
-            <path
-              d="M1 177L166.916 21.336C211.748 -20.7264 285.462 6.79004 292.871 67.8171V67.8171C293.287 71.2484 293.981 74.6685 294.939 77.9895V77.9895C308.165 123.839 364.75 140.125 400.326 108.322L480.44 36.7048C538.095 -14.8352 627.475 -6.14781 674.126 55.5303L766 177"
-              stroke="#FF5403"
-              strokeLinecap="round"
-            />
-          </svg>
-          <div className="mt-0 w-full" style={{ inset: "0" }}>
+            <Line type="monotone" dataKey="uv" stroke="red" />
+          </LineChart>
+          <div className="mt-0 w-full flex justify-between">
             <p
-              className="text-gray-gray-400 text-left flex items-center justify-start"
+              className="text-gray-gray-400"
               style={{
                 font: "var(--degular-paragraph-xx-small, 500 14px/16px 'Degular-Medium', sans-serif)",
               }}
@@ -77,9 +75,9 @@ export default function Balance() {
               Feb 20 , 2022
             </p>
             <p
-              className="text-gray-gray-400 text-right flex items-center justify-end"
+              className="text-gray-gray-400"
               style={{
-                font: "var(--degular-paragraph-x-small, 500 16px/24px 'Degular-Medium', sans-serif)",
+                font: "var(--degular-paragraph-xx-small, 500 14px/16px 'Degular-Medium', sans-serif)",
               }}
             >
               Mar 03 , 2022

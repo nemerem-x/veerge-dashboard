@@ -1,22 +1,13 @@
-import { string } from "prop-types";
-import React from "react";
-
-interface Info {
-  amount: number;
-  date: string;
-  metadata?: {
-    name: string;
-    type: string;
-    email: string;
-    product_name: string;
-  };
-  payment_reference: string;
-  status: string;
-  type: string;
-}
+import { months } from "@/utils/months";
+import { Info } from "@/types";
 
 export default function TransactionItem(Prop: { key: number; data: Info }) {
   const { data } = Prop;
+  const value = new Date(data.date);
+
+  const date = `${
+    value.getDate() + " " + months[value.getMonth()] + " " + value.getFullYear()
+  }`;
 
   return (
     <div className="flex justify-between w-full h-[49px] relative">
@@ -118,7 +109,7 @@ export default function TransactionItem(Prop: { key: number; data: Info }) {
             font: "var(--degular-paragraph-xx-small, 500 14px/16px 'Degular-Medium', sans-serif)",
           }}
         >
-          {data.date}
+          {date}
         </p>
       </div>
     </div>

@@ -1,33 +1,18 @@
-import { Skeleton, Spinner } from "@nextui-org/react";
+import { Spinner } from "@nextui-org/react";
+import { AnimatePresence } from "framer-motion";
 import TransactionItem from "@/components/transactions/TransactionItem";
-import { SetStateAction, Dispatch } from "react";
 import { useEffect, useState } from "react";
 import { transactions } from "@/services/transactions";
+import { Selection } from "@nextui-org/react";
 import { Filter } from "../../components/Filter";
 import { transactionsFilter } from "@/services/transactions";
-
-interface Prop {
-  setFilterOpen: Dispatch<SetStateAction<boolean>>;
-  filterOpen: boolean;
-}
-
-interface Info {
-  amount: number;
-  date: string;
-  metadata?: {
-    name: string;
-    type: string;
-    email: string;
-    product_name: string;
-  };
-  payment_reference: string;
-  status: string;
-  type: string;
-}
+import { Info } from "@/types";
+import { Prop } from "@/types";
 
 export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
   const [transactionsData, setTransactionsData] = useState<Info[]>([]);
   const [loading, setLoading] = useState(true);
+  const [clearFilter, setClearFilter] = useState(false);
 
   useEffect(() => {
     async function transaction() {
@@ -37,12 +22,22 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
       setLoading(false);
     }
     transaction();
-  }, []);
+  }, [clearFilter]);
 
-  const filter = async (startDate: string, endDate: string) => {
+  const filter = async (
+    startDate: string,
+    endDate: string,
+    selectedType: Selection,
+    selectedStatus: Selection
+  ) => {
     setLoading(true);
     setFilterOpen(false);
-    const data = await transactionsFilter(startDate, endDate);
+    const data = await transactionsFilter(
+      startDate,
+      endDate,
+      selectedType,
+      selectedStatus
+    );
     setTransactionsData(data);
     setLoading(false);
   };
@@ -57,7 +52,16 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
         </div>
       )}
       <div className="h-auto w-full relative flex flex-col justify-center items-center mt-12">
-        {filterOpen && <Filter apply={filter} setFilterOpen={setFilterOpen} />}
+        <AnimatePresence>
+          {filterOpen && (
+            <Filter
+              apply={filter}
+              setFilterOpen={setFilterOpen}
+              clearFilter={clearFilter}
+              setClearFilter={setClearFilter}
+            />
+          )}
+        </AnimatePresence>
         <div className="border-solid border-gray-gray-50 border-b pb-6 flex flex-row gap-6 items-center justify-start w-full">
           <div className="flex flex-col gap-0 items-start justify-start flex-1 relative">
             <p
@@ -74,7 +78,8 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
                 font: "var(--degular-paragraph-xx-small, 500 14px/16px 'Degular-Medium', sans-serif)",
               }}
             >
-              Your transactions for the last 7 days
+              {/* Your transactions for the last 7 days */}
+              All your transactions
             </p>
           </div>
           <div className="flex flex-row gap-3 items-center justify-end shrink-0 relative">
@@ -154,7 +159,7 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
           </div>
         </div>
 
-        <div className="mt-10 pb-32 flex gap-6 items-center justify-center w-full min-h-[400px]">
+        <div className="mt-10 pb-32 flex gap-6 items-start justify-center w-full min-h-[400px]">
           {transactionsData.length > 0 ? (
             <div className="w-full flex flex-col gap-6">
               {transactionsData.map((data, index) => {
@@ -162,7 +167,7 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
               })}
             </div>
           ) : (
-            <div className="w-[400px] flex flex-col gap-4">
+            <div className="w-[400px] flex flex-col gap-4 mt-20">
               <div className="flex flex-col gap-2">
                 <p className="text-2xl">
                   No matching transaction found for the selected filter
@@ -171,7 +176,10 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
                   Change your filters to see more results, or add a new product.
                 </p>
               </div>
-              <button className="bg-gray-gray-50 rounded-[100px] py-3 p-6 w-fit">
+              <button
+                onClick={() => setClearFilter(!clearFilter)}
+                className="bg-gray-gray-50 rounded-[100px] py-3 p-6 w-fit"
+              >
                 Clear Filter
               </button>
             </div>

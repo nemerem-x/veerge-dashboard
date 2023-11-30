@@ -1,35 +1,31 @@
-// import "./Share.css";
-import { motion, AnimatePresence } from "framer-motion";
-import { SetStateAction, Dispatch, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import Calendar from "react-calendar";
 import "../app/Calendar.css";
 import { Selection, Select, SelectItem } from "@nextui-org/react";
-
-export interface IShareProps {
-  className?: string;
-  setFilterOpen: Dispatch<SetStateAction<boolean>>;
-  apply: (startDate: string, endDate: string) => void;
-}
+import { months } from "@/utils/months";
+import { IShareProps } from "@/types";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const Filter = ({
-  className,
   setFilterOpen,
+  setClearFilter,
+  clearFilter,
   apply,
 }: IShareProps): JSX.Element => {
   const [selectedType, setSelectedType] = useState<Selection>(new Set([]));
   const [selectedStatus, setSelectedStatus] = useState<Selection>(new Set([]));
   const [disableApplyBtn, setDisableApplyBtn] = useState(false);
-  const [startValue, startOnChange] = useState<Value>(new Date());
-  const [endValue, endOnChange] = useState<Value>(new Date());
+  const [startValue, startOnChange] = useState<Value>(new Date("01 mar 2022"));
+  const [endValue, endOnChange] = useState<Value>(new Date("02 mar 2022"));
 
   const types = [
     "Store Transactions",
     "Get Tipped",
     "Withdrawals",
+    "Deposits",
     "Chargebacks",
     "Cashbacks",
   ];
@@ -41,24 +37,16 @@ export const Filter = ({
     }
   };
 
-  const call = () => {
-    apply(startDate, endDate);
+  const clearFilterFields = () => {
+    setClearFilter(!clearFilter);
+    setSelectedStatus(new Set([]));
+    setSelectedType(new Set([]));
   }
 
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const call = () => {
+    apply(startDate, endDate, selectedType, selectedStatus);
+  }
+
   const startDate = `${
     (startValue as Date)?.getDate() +
     " " +
@@ -232,7 +220,7 @@ export const Filter = ({
                 </p>
               </div>
               <div className="flex w-full gap-6 relative h-[50px]">
-                <div className="group flex justify-between items-center bg-gray-gray-50 w-1/2 rounded-xl px-3 z-40">
+                <div className="group cursor-pointer flex justify-between items-center bg-gray-gray-50 w-1/2 rounded-xl px-3 z-40">
                   <p className="text-sm">{startDate}</p>
                   <svg
                     className="shrink-0 w-5 h-5 relative overflow-visible"
@@ -261,11 +249,11 @@ export const Filter = ({
                       />
                     </g>
                   </svg>
-                  <div className="group-hover:block hidden w-full bg-white h-auto border-[2px] p-6 border-gray-200 rounded-[20px] left-0 top-12 absolute z-10">
+                  <div className="group-hover:block hidden w-full bg-white h-auto border-[2px] p-6 border-gray-200 rounded-[20px] left-0 top-12 absolute z-[200000]">
                     <Calendar onChange={startOnChange} value={startValue} />
                   </div>
                 </div>
-                <div className="group flex justify-between items-center bg-gray-gray-50 w-1/2 rounded-xl px-3 z-40">
+                <div className="group cursor-pointer flex justify-between items-center bg-gray-gray-50 w-1/2 rounded-xl px-3 z-40">
                   <p className="text-sm">{endDate}</p>
                   <svg
                     className="shrink-0 w-5 h-5 relative overflow-visible"
@@ -365,6 +353,7 @@ export const Filter = ({
           style={{ backdropFilter: "var(--blur-backdrop-filter, blur(16px))" }}
         >
           <button
+            onClick={clearFilterFields}
             style={{
               font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
             }}
