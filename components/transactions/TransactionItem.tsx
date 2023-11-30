@@ -10,7 +10,7 @@ export default function TransactionItem(Prop: { key: number; data: Info }) {
   }`;
 
   return (
-    <div className="flex justify-between w-full h-[49px] relative">
+    <div className="flex justify-between items-center w-full h-[90px] relative hover:bg-gray-100 px-4 py-4 border-b border-gray-100">
       <div className="flex gap-2">
         {data.type === "deposit" ? (
           <div className="bg-trashed-colors-jade-100 rounded-[50%] relative flex justify-center w-[50px] h-[50px]">

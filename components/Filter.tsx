@@ -206,6 +206,7 @@ export const Filter = ({
             </div>
           </div>
         </div>
+        
         <div className="flex flex-col gap-6 items-start justify-start w-[412px] absolute left-[calc(50%_-_206px)] top-[146px]">
           <div className="flex flex-row gap-1.5 items-start justify-start self-stretch shrink-0 relative">
             <div className="flex flex-col gap-3 items-start justify-start flex-1 relative">

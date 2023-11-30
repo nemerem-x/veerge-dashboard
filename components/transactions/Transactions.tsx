@@ -124,17 +124,16 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
                 </g>
               </svg>
             </button>
-            <div className="bg-gray-gray-50 rounded-[100px] pt-3 pr-5 pb-3 pl-[30px] flex flex-row gap-3 items-center justify-center shrink-0 relative">
-              <div
-                className="text-black-black-300 text-left relative flex items-center justify-start"
-                style={{
-                  font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
-                }}
-              >
-                Export list
-              </div>
+            <button
+              onClick={() => setFilterOpen(true)}
+              style={{
+                font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
+              }}
+              className="bg-gray-gray-50 group hover:bg-black hover:text-white rounded-[100px] pt-3 pr-5 pb-3 pl-[30px] flex flex-row gap-3 items-center justify-center shrink-0 relative"
+            >
+              Export list
               <svg
-                className="shrink-0 w-5 h-5 relative overflow-visible"
+                className="shrink-0 w-5 h-5 relative overflow-visible group-hover:bg-white rounded-full"
                 style={{ transform: "translate(0px, 0px)" }}
                 width="20"
                 height="20"
@@ -160,13 +159,13 @@ export default function Transactions({ setFilterOpen, filterOpen }: Prop) {
                   />
                 </g>
               </svg>
-            </div>
+            </button>
           </div>
         </div>
 
-        <div className="mt-10 pb-32 flex gap-6 items-start justify-center w-full min-h-[400px]">
+        <div className="mt-5 pb-32 flex gap-6 items-start justify-center w-full min-h-[400px]">
           {transactionsData.length > 0 ? (
-            <div className="w-full flex flex-col gap-6">
+            <div className="w-full flex flex-col">
               {transactionsData.map((data, index) => {
                 return <TransactionItem key={index} data={data} />;
               })}

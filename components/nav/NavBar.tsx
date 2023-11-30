@@ -1,48 +1,61 @@
-import React from "react";
+// "use client";
+import { Link } from "@nextui-org/react";
+import { usePathname } from "next/navigation";
 
 export default function NavBar() {
+  const path = usePathname();
+  const show = path === "/" ? true : false;
+
   return (
     <div className="bg-trashed-colors-white-80 flex justify-center items-center w-full h-[100px]">
       <div
-        className="bg-[#ffffff] flex items-center rounded-[100px] border-solid border-trashed-colors-white-100 border-2 px-3 w-full h-16 relative"
+        className="bg-[#ffffff] flex items-center justify-between rounded-[100px] border-solid border-trashed-colors-white-100 border-2 px-3 w-full h-16 relative"
         style={{
           boxShadow:
             "var(--elevation-light-mode-100-box-shadow,  0px 2px 4px 0px rgba(45, 59, 67, 0.05),  0px 2px 6px 0px rgba(45, 59, 67, 0.06))",
         }}
       >
-        <svg
-          className="w-9 h-9"
-          style={{}}
-          width="36"
-          height="36"
-          viewBox="0 0 36 36"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M29.0842 12.5509H24.301C24.0719 12.5509 23.8521 12.4598 23.6901 12.2978C23.528 12.1358 23.437 11.916 23.437 11.6868V6.96123C23.437 6.73208 23.528 6.51232 23.6901 6.35029C23.8521 6.18826 24.0719 6.09723 24.301 6.09723H26.1778C28.2598 6.09723 29.9482 7.78443 29.9482 9.86644V11.6868C29.9482 11.916 29.8572 12.1358 29.6951 12.2978C29.5331 12.4598 29.3134 12.5509 29.0842 12.5509Z"
-            fill="#131316"
-          />
-          <path
-            d="M6.0625 26.1516V15.6012C6.0625 15.4877 6.08485 15.3754 6.12827 15.2705C6.17169 15.1657 6.23533 15.0705 6.31556 14.9902C6.39579 14.91 6.49104 14.8464 6.59586 14.803C6.70069 14.7595 6.81304 14.7372 6.9265 14.7372H11.6833C11.9124 14.7372 12.1322 14.8282 12.2942 14.9902C12.4563 15.1523 12.5473 15.372 12.5473 15.6012V29.058C12.5473 29.2871 12.4563 29.5069 12.2942 29.6689C12.1322 29.831 11.9124 29.922 11.6833 29.922H9.8329C7.7509 29.922 6.0625 28.2336 6.0625 26.1516Z"
-            fill="#131316"
-          />
-          <path
-            d="M14.748 26.1516V15.6012C14.748 15.372 14.8391 15.1523 15.0011 14.9902C15.1631 14.8282 15.3829 14.7372 15.612 14.7372H20.3688C20.598 14.7372 20.8178 14.8282 20.9798 14.9902C21.1418 15.1523 21.2328 15.372 21.2328 15.6012V29.058C21.2328 29.2871 21.1418 29.5069 20.9798 29.6689C20.8178 29.831 20.598 29.922 20.3688 29.922H18.5184C16.4364 29.922 14.748 28.2336 14.748 26.1516Z"
-            fill="#131316"
-          />
-          <path
-            d="M23.4336 26.1516V15.6012C23.4336 15.372 23.5246 15.1523 23.6866 14.9902C23.8487 14.8282 24.0684 14.7372 24.2976 14.7372H29.0543C29.2835 14.7372 29.5032 14.8282 29.6652 14.9902C29.8273 15.1523 29.9183 15.372 29.9183 15.6012V29.058C29.9183 29.2871 29.8273 29.5069 29.6652 29.6689C29.5032 29.831 29.2835 29.922 29.0543 29.922H27.2039C25.122 29.922 23.4336 28.2336 23.4336 26.1516Z"
-            fill="#131316"
-          />
-          <path
-            d="M17.5417 6.0876L6.91816 6.078C6.68922 6.078 6.46964 6.16887 6.30764 6.33064C6.14565 6.49241 6.05448 6.71186 6.05416 6.9408L6.05176 8.838C6.05056 10.8768 7.70176 12.5328 9.74175 12.534L20.3653 12.5448C20.5946 12.5448 20.8145 12.4538 20.9767 12.2918C21.1389 12.1298 21.2302 11.9101 21.2305 11.6808V9.7848C21.2341 7.7448 19.5817 6.09 17.5417 6.0876Z"
-            fill="#131316"
-          />
-        </svg>
+        <div className="w-[169px]">
+          <svg
+            className="w-9 h-9"
+            style={{}}
+            width="36"
+            height="36"
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M29.0842 12.5509H24.301C24.0719 12.5509 23.8521 12.4598 23.6901 12.2978C23.528 12.1358 23.437 11.916 23.437 11.6868V6.96123C23.437 6.73208 23.528 6.51232 23.6901 6.35029C23.8521 6.18826 24.0719 6.09723 24.301 6.09723H26.1778C28.2598 6.09723 29.9482 7.78443 29.9482 9.86644V11.6868C29.9482 11.916 29.8572 12.1358 29.6951 12.2978C29.5331 12.4598 29.3134 12.5509 29.0842 12.5509Z"
+              fill="#131316"
+            />
+            <path
+              d="M6.0625 26.1516V15.6012C6.0625 15.4877 6.08485 15.3754 6.12827 15.2705C6.17169 15.1657 6.23533 15.0705 6.31556 14.9902C6.39579 14.91 6.49104 14.8464 6.59586 14.803C6.70069 14.7595 6.81304 14.7372 6.9265 14.7372H11.6833C11.9124 14.7372 12.1322 14.8282 12.2942 14.9902C12.4563 15.1523 12.5473 15.372 12.5473 15.6012V29.058C12.5473 29.2871 12.4563 29.5069 12.2942 29.6689C12.1322 29.831 11.9124 29.922 11.6833 29.922H9.8329C7.7509 29.922 6.0625 28.2336 6.0625 26.1516Z"
+              fill="#131316"
+            />
+            <path
+              d="M14.748 26.1516V15.6012C14.748 15.372 14.8391 15.1523 15.0011 14.9902C15.1631 14.8282 15.3829 14.7372 15.612 14.7372H20.3688C20.598 14.7372 20.8178 14.8282 20.9798 14.9902C21.1418 15.1523 21.2328 15.372 21.2328 15.6012V29.058C21.2328 29.2871 21.1418 29.5069 20.9798 29.6689C20.8178 29.831 20.598 29.922 20.3688 29.922H18.5184C16.4364 29.922 14.748 28.2336 14.748 26.1516Z"
+              fill="#131316"
+            />
+            <path
+              d="M23.4336 26.1516V15.6012C23.4336 15.372 23.5246 15.1523 23.6866 14.9902C23.8487 14.8282 24.0684 14.7372 24.2976 14.7372H29.0543C29.2835 14.7372 29.5032 14.8282 29.6652 14.9902C29.8273 15.1523 29.9183 15.372 29.9183 15.6012V29.058C29.9183 29.2871 29.8273 29.5069 29.6652 29.6689C29.5032 29.831 29.2835 29.922 29.0543 29.922H27.2039C25.122 29.922 23.4336 28.2336 23.4336 26.1516Z"
+              fill="#131316"
+            />
+            <path
+              d="M17.5417 6.0876L6.91816 6.078C6.68922 6.078 6.46964 6.16887 6.30764 6.33064C6.14565 6.49241 6.05448 6.71186 6.05416 6.9408L6.05176 8.838C6.05056 10.8768 7.70176 12.5328 9.74175 12.534L20.3653 12.5448C20.5946 12.5448 20.8145 12.4538 20.9767 12.2918C21.1389 12.1298 21.2302 11.9101 21.2305 11.6808V9.7848C21.2341 7.7448 19.5817 6.09 17.5417 6.0876Z"
+              fill="#131316"
+            />
+          </svg>
+        </div>
 
-        <div className="lg:flex hidden flex-row gap-5 items-center justify-center absolute left-[calc(50%_-_291px)] top-[calc(50%_-_20px)]">
-          <button className="hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative">
+        <div className="lg:flex hidden flex-row gap-5 items-center justify-between left-[calc(50%_-_291px)] top-[calc(50%_-_20px)]">
+          <Link
+            href={"/home"}
+            style={{
+              font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
+            }}
+            className="group text-gray-gray-400 hover:text-white hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative"
+          >
             <svg
               className="shrink-0 w-5 h-5 relative overflow-visible"
               style={{}}
@@ -70,16 +83,15 @@ export default function NavBar() {
                 />
               </g>
             </svg>
-            <p
-              className="text-gray-gray-400 text-center relative flex items-center justify-center"
-              style={{
-                font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
-              }}
-            >
-              Home
-            </p>
-          </button>
-          <button className="hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative">
+            Home
+          </Link>
+          <Link
+            href={"/analytics"}
+            style={{
+              font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
+            }}
+            className="group text-gray-gray-400 hover:text-white hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative"
+          >
             <svg
               className="shrink-0 w-5 h-5 relative overflow-visible"
               style={{}}
@@ -107,17 +119,17 @@ export default function NavBar() {
                 />
               </g>
             </svg>
-
-            <p
-              className="text-gray-gray-400 text-center relative flex items-center justify-center"
-              style={{
-                font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
-              }}
-            >
-              Analytics
-            </p>
-          </button>
-          <button className="hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative">
+            Analytics
+          </Link>
+          <Link
+            href={"/"}
+            style={{
+              font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
+            }}
+            className={`${
+              path === "/" ? "bg-black-black-300 text-white" : ""
+            } group text-gray-gray-400 hover:text-white hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative`}
+          >
             <svg
               className="shrink-0 w-5 h-5 relative overflow-visible"
               style={{}}
@@ -142,20 +154,18 @@ export default function NavBar() {
                 <path
                   d="M3.1459 15.9383C2.75478 15.9383 2.41995 15.799 2.14142 15.5205C1.8629 15.2419 1.72363 14.9071 1.72363 14.516V7.02887C1.72363 6.87034 1.78075 6.73389 1.89499 6.61952C2.00922 6.50514 2.14651 6.44795 2.30684 6.44795C2.46717 6.44795 2.60436 6.50514 2.7184 6.61952C2.83245 6.73389 2.88947 6.87034 2.88947 7.02887V14.516C2.88947 14.5801 2.91618 14.6389 2.96961 14.6923C3.02303 14.7457 3.08179 14.7724 3.1459 14.7724H15.2452C15.4037 14.7724 15.5402 14.8296 15.6545 14.9441C15.7689 15.0585 15.8261 15.195 15.8261 15.3536C15.8261 15.5153 15.7689 15.6531 15.6545 15.7672C15.5402 15.8812 15.4037 15.9383 15.2452 15.9383H3.1459ZM6.02888 13.0721C5.63776 13.0721 5.30293 12.9328 5.0244 12.6543C4.74588 12.3758 4.60661 12.041 4.60661 11.6498V5.41989C4.60661 5.02877 4.74588 4.69394 5.0244 4.41541C5.30293 4.13688 5.63776 3.99762 6.02888 3.99762H16.8542C17.2453 3.99762 17.5801 4.13688 17.8586 4.41541C18.1372 4.69394 18.2764 5.02877 18.2764 5.41989V11.6498C18.2764 12.041 18.1372 12.3758 17.8586 12.6543C17.5801 12.9328 17.2453 13.0721 16.8542 13.0721H6.02888ZM7.22838 11.9063C7.22838 11.4976 7.08582 11.15 6.8007 10.8634C6.51558 10.5768 6.17283 10.4335 5.77245 10.4335V11.6498C5.77245 11.7193 5.79783 11.7794 5.84859 11.8301C5.89934 11.8809 5.95944 11.9063 6.02888 11.9063H7.22838ZM15.6547 11.9063H16.8542C16.9236 11.9063 16.9837 11.8809 17.0345 11.8301C17.0852 11.7794 17.1106 11.7193 17.1106 11.6498V10.4335C16.7056 10.4335 16.3617 10.5771 16.0789 10.8644C15.7961 11.1517 15.6547 11.4989 15.6547 11.9063ZM11.4383 10.492C11.9891 10.492 12.4521 10.3017 12.8273 9.92129C13.2026 9.54084 13.3902 9.07582 13.3902 8.52622C13.3902 7.9824 13.2013 7.5217 12.8234 7.14412C12.4455 6.76655 11.9835 6.57777 11.4376 6.57777C10.8916 6.57777 10.4282 6.76517 10.0473 7.13997C9.66644 7.51479 9.47601 7.97869 9.47601 8.53166C9.47601 9.08106 9.66538 9.54513 10.0441 9.92387C10.4228 10.3026 10.8876 10.492 11.4383 10.492ZM5.77245 6.6362C6.17746 6.6362 6.52137 6.49258 6.80417 6.20533C7.08698 5.91806 7.22838 5.57077 7.22838 5.16345H6.02888C5.95944 5.16345 5.89934 5.18883 5.84859 5.2396C5.79783 5.29035 5.77245 5.35045 5.77245 5.41989V6.6362ZM17.1106 6.6362V5.41989C17.1106 5.35045 17.0852 5.29035 17.0345 5.2396C16.9837 5.18883 16.9236 5.16345 16.8542 5.16345H15.6547C15.6547 5.57211 15.7972 5.91973 16.0823 6.20633C16.3675 6.49291 16.7102 6.6362 17.1106 6.6362Z"
                   fill="#56616B"
-                />
+                />{" "}
               </g>
             </svg>
-
-            <p
-              className="text-gray-gray-400 text-center relative flex items-center justify-center"
-              style={{
-                font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
-              }}
-            >
-              Revenue
-            </p>
-          </button>
-          <button className="hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative">
+            Revenue
+          </Link>
+          <Link
+            href={"/crm"}
+            style={{
+              font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
+            }}
+            className="group text-gray-gray-400 hover:text-white hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative"
+          >
             <svg
               className="shrink-0 w-5 h-5 relative overflow-visible"
               style={{}}
@@ -183,17 +193,15 @@ export default function NavBar() {
                 />
               </g>
             </svg>
-
-            <p
-              className="text-gray-gray-400 text-center relative flex items-center justify-center"
-              style={{
-                font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
-              }}
-            >
-              CRM
-            </p>
-          </button>
-          <button className="hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative">
+            CRM
+          </Link>
+          <Link
+            href={"/apps"}
+            style={{
+              font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
+            }}
+            className="group text-gray-gray-400 hover:text-white hover:bg-black-black-300 rounded-[100px] py-2 px-[18px] flex flex-row gap-1 items-center justify-center shrink-0 relative"
+          >
             <svg
               className="shrink-0 w-5 h-5 relative overflow-visible"
               style={{}}
@@ -221,18 +229,11 @@ export default function NavBar() {
                 />
               </g>
             </svg>
-            <p
-              className="text-gray-gray-400 text-center relative flex items-center justify-center"
-              style={{
-                font: "var(--degular-subtitle-6-x-small, 600 16px/24px 'Degular-Semibold', sans-serif)",
-              }}
-            >
-              Apps
-            </p>
-          </button>
+            Apps
+          </Link>
         </div>
 
-        <div className="flex flex-row gap-6 items-center justify-end absolute right-3 top-3">
+        <div className="flex flex-row gap-6 items-center justify-end right-3 top-3">
           <svg
             className=" cursor-pointer shrink-0 w-5 h-5 relative overflow-visible"
             style={{}}
