@@ -6,7 +6,7 @@ import Provider from "@/components/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Mainstack Accessment",
+  title: "Veerge Assessment",
   description: "Developed by Nemerem",
 };
 
