@@ -24,7 +24,7 @@ export default function Home() {
         </div>
 
         <Overview />
-        <div className="flex justify-center gap-6 mt-8">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-6 mt-8">
           <ListingOverview />
           <Outstanding />
           <TopSelling />

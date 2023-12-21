@@ -52,7 +52,7 @@ export default function NavBar() {
 
         {/* other end of nav */}
         <div className="flex items-center gap-16">
-          <div className="flex flex-row gap-6 items-center justify-start relative">
+          <div className="hidden lg:flex flex-row gap-6 items-center justify-start relative">
             <div className="cursor-pointer w-8 h-8 relative">
               <svg
                 className="h-[auto] absolute left-[2.67px] top-[2.67px] overflow-visible"
@@ -290,7 +290,7 @@ export default function NavBar() {
       </div>
 
       <div
-        className="bg-main-white flex justify-center items-center w-full h-[70px]"
+        className="bg-white overflow-scroll flex justify-center items-center w-full h-[70px]"
         style={{
           boxShadow:
             "var(--lowshadow-box-shadow,  0px 4px 8px 0px rgba(0, 0, 0, 0.02))",

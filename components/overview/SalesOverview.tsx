@@ -30,7 +30,7 @@ export default function SalesOverview() {
           <button className="text-deep-gray text-center">1 Year</button>
         </div>
 
-        <div className="w-full mt-6 flex justify-between">
+        <div className="w-full mt-6 flex flex-col lg:flex-row items-center justify-between">
           <div className="w-full flex flex-col justify-end items-center">
             <div className="flex gap-4 pt-2 border-t">
               <p className="text-xs">Jan</p>
